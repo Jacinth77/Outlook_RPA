@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.novayre.jidoka.robot.test</groupId>
+	<artifactId>MS-Outlook-Fetch-Incoming-Attachments</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1</version>
+
+	<parent>
+		<groupId>com.novayre.jidoka.robot</groupId>
+		<artifactId>jidoka-robot-parent</artifactId>
+		<version>7.0.0</version> <!-- VC -->
+	</parent>
+
+	<name>MS-Outlook-Fetch-Incoming-Attachments Jidoka Robot</name>
+	<url>http://www.novayre.es</url>
+
+	<properties>
+		<jidoka.serverId>jidoka</jidoka.serverId>
+	</properties>
+
+	<profiles>
+
+		<profile>
+
+			<id>jidoka-repo</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		
+			<repositories>
+				<repository>
+					<id>jidoka</id>
+					<url>https://infosysdev.appiancloud.com/rpa-repo/repository/jidoka/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			
+			<pluginRepositories>
+				<pluginRepository>
+					<id>jidoka</id>
+					<url>https://infosysdev.appiancloud.com/rpa-repo/repository/jidoka/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+
+			<distributionManagement>
+				<repository>
+					<id>jidoka</id>
+					<name>jidoka</name>
+					<url>https://infosysdev.appiancloud.com/rpa-repo/repository/jidoka/</url>
+					<layout>default</layout>
+				</repository>
+			</distributionManagement>
+			
+		</profile>
+
+	</profiles>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.novayre.jidoka.module</groupId>
+			<artifactId>jidoka-client-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.novayre.jidoka.module</groupId>
+			<artifactId>jidoka-msoutlook-api</artifactId>
+			<version>${jidoka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.10</version>
+		</dependency>
+	</dependencies>
+</project>
