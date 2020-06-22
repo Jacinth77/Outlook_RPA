@@ -59,7 +59,7 @@ public class MSOutlookRobot implements IRobot {
 	private static final String ATTACHMENT_REGEXP_PARAMETER = "ATTACHMENT_REGEXP";
 
 	/** The Constant CREDENTIALS_APPIAN_APIKEY. */
-	private static final String CREDENTIALS_APPIAN_APIKEY = "Appian";
+	private static final String CREDENTIALS_APPIAN_APIKEY = "GoogleDocs";
 
 	/**
 	 * Server.
@@ -193,6 +193,7 @@ public class MSOutlookRobot implements IRobot {
 				currentItem.getEntryID(), currentItem.getSubject()));
 
 		setLowCodeVariables();
+
 	}
 
 	/**
@@ -377,6 +378,10 @@ public void end() throws Exception {
 		criteria.setFolderPath(sourceFolder);
 		List<IOlFolder> folderList = outlook.getOlFolderManager().findFolder(criteria);
 
+		for (int i = 0; i < folderList.size(); i++) {
+			server.info("Folder name  :" + folderList.get(i));
+		}
+
 		if(folderList.size() > 1) {
 			throw new JidokaFatalException("More than 1 folder with the same name");
 		}
@@ -387,6 +392,7 @@ public void end() throws Exception {
 
 		mailList = outlook.getOlFolderManager().getMailList(folderList.get(0).getEntryID());
 	}
+
 
 	private String uploadFile(File file) throws JidokaFatalException, IOException {
 
@@ -428,10 +434,11 @@ public void end() throws Exception {
 		lowCodeVariables.get("documentIds").setValue(documentIds.toArray());
 	}
 
-	private void setLowCodeVariables(){
+	private void setLowCodeVariables () {
 		lowCodeVariables.get("emailBody").setValue(currentItem.getBody());
 		lowCodeVariables.get("fromEmail").setValue(currentItem.getSenderEmailAddress());
 		lowCodeVariables.get("fromName").setValue(currentItem.getSenderName());
 		lowCodeVariables.get("subject").setValue(currentItem.getSubject());
 	}
 }
+
