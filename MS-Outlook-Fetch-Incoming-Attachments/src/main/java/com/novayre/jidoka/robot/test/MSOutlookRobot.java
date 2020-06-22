@@ -269,7 +269,7 @@ public class MSOutlookRobot implements IRobot {
 	 * @return
 	 * @throws Exception
 	 */
-	public void end() throws Exception {
+public void end() throws Exception {
 		windows.pause(10000);
 		outlook.close();
 	}
