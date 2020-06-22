@@ -240,6 +240,52 @@ public void readEmail() {
 }
 
 
+	public void readEmails() {
+		boolean maxvalue = true;
+
+		IOlFolderFW criteria = new OlFolderFW();
+		criteria.setFolderPath(sourceFolder);
+		List<IOlFolder> folderList = outlook.getOlFolderManager().findFolder(criteria);
+
+		mailList = outlook.getOlFolderManager().getMailList(folderList.get(0).getEntryID());
+
+		for (int i=0;i<mailList.size();i++) {
+
+
+			server.info("Mail Subject <" + mailList.get(i).getSubject() + ">");
+			server.info("     Sender <" + mailList.get(i).getSenderEmailAddress() + ">");
+			server.info("     To <" + mailList.get(i).getTo() + ">");
+			server.info("     CC <" + mailList.get(i).getCc() + ">");
+			server.info("     BCC <" + mailList.get(i).getBcc() + ">");
+			server.info("     Body <" + mailList.get(i).getBody() + ">");
+			server.info("     CreationTime <" + mailList.get(i).getCreationTime() + ">");
+			Document doc = Jsoup.parse(mailList.get(i).getBody());
+			String text = doc.body().text();
+			int Amt = Integer.parseInt(text.split("Amount")[1]);
+			for (int j=0;j<mailList.size();j++){
+				Document doce = Jsoup.parse(mailList.get(i).getBody());
+				String textvalue = doce.body().text();
+				int AmtValue = Integer.parseInt(textvalue.split("Amount")[1]);
+				if (Amt == AmtValue){
+					j = mailList.size()+1;
+					maxvalue = false;
+
+				}
+
+			}
+
+			if(maxvalue){
+				i = mailList.size()+1;
+				currentItem = mailList.get(currentEmailIndex - 1);
+
+			}
+			maxvalue = true;
+
+
+		}
+	}
+
+
 
 
 	/**
