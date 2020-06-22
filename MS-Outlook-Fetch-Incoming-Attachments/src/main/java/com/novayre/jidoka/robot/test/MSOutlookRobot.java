@@ -229,13 +229,9 @@ public void readEmail() {
 		server.info("     To <" + mailItem.getTo() + ">");
 		server.info("     CC <" + mailItem.getCc() + ">");
 		server.info("     BCC <" + mailItem.getBcc() + ">");
-		server.info("     HtmlBody <" + mailItem.getHtmlBody() + ">");
 		server.info("     Body <" + mailItem.getBody() + ">");
 		server.info("     CreationTime <" + mailItem.getCreationTime() + ">");
-		Document doc = Jsoup.parse(mailItem.getHtmlBody());
-		String text = doc.body().text();
-		server.info("Content" + text);
-		if (text.contains("Loan amount 50000")) {
+		if(mailItem.getBody() == "Loan Amount 200"){
 			break;
 		}
 
