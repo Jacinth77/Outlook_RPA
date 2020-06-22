@@ -379,7 +379,7 @@ public class MSOutlookRobot implements IRobot {
 		List<IOlFolder> folderList = outlook.getOlFolderManager().findFolder(criteria);
 
 		for (int i = 0; i < folderList.size(); i++) {
-			server.info("Folder name  :" + folderList.get(i));
+			server.info("Folder name  :" + folderList.get(i).getName());
 		}
 
 		if(folderList.size() > 1) {
