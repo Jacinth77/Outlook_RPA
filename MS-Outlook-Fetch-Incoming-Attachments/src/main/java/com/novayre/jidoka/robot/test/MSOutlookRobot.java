@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import com.novayre.jidoka.outlook.api.model.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -29,11 +30,9 @@ import com.novayre.jidoka.client.api.execution.IUsernamePassword;
 import com.novayre.jidoka.client.lowcode.IRobotVariable;
 import com.novayre.jidoka.outlook.api.IJidokaOutlook;
 import com.novayre.jidoka.outlook.api.exception.JidokaMsOutlookException;
-import com.novayre.jidoka.outlook.api.model.IOlFolder;
-import com.novayre.jidoka.outlook.api.model.IOlFolderFW;
-import com.novayre.jidoka.outlook.api.model.IOlMailItem;
-import com.novayre.jidoka.outlook.api.model.OlFolderFW;
 import com.novayre.jidoka.windows.api.IWindows;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  * My robot
@@ -218,6 +217,34 @@ public class MSOutlookRobot implements IRobot {
 			server.setCurrentItemResultToWarn(warnMsg);
 		}
 	}
+public void readEmail() {
+
+	List<IOlMailItem> mailList = outlook.getOlFolderManager().getMailList("00000000BFC82839EBA7B3438CC18675EBE64F0582820000");
+
+	for (IOlMailItem mailItem : mailList) {
+
+
+		server.info("Mail Subject <" + mailItem.getSubject() + ">");
+		server.info("     Sender <" + mailItem.getSenderEmailAddress() + ">");
+		server.info("     To <" + mailItem.getTo() + ">");
+		server.info("     CC <" + mailItem.getCc() + ">");
+		server.info("     BCC <" + mailItem.getBcc() + ">");
+		server.info("     HtmlBody <" + mailItem.getHtmlBody() + ">");
+		server.info("     Body <" + mailItem.getBody() + ">");
+		server.info("     CreationTime <" + mailItem.getCreationTime() + ">");
+		Document doc = Jsoup.parse(mailItem.getHtmlBody());
+		String text = doc.body().text();
+		server.info("Content" + text);
+		if (text.contains("Loan amount 50000")) {
+			break;
+		}
+
+
+	}
+}
+
+
+
 
 	/**
 	 * Action 'Move Mail'.
